@@ -1,0 +1,29 @@
+import Crypto.Cipher
+import os
+
+function encrypt(message, key_filename):
+    open key_file as key_file
+        key = read all bytes from key_file
+    close key_file
+
+    iv = generate random 16 bytes
+
+    cipher = AES.new(key, AES.MODE_EAX, iv)
+
+    ciphertext, tag = cipher.encrypt_and_digest(message)
+
+    open output_file as output_file
+        write iv to output_file
+        write tag to output_file
+        write ciphertext to output_file
+    close output_file
+
+    return ciphertext
+
+text = read user input
+
+key_filename = "key.txt"
+
+encrypted_text = encrypt(encode text, key_filename)
+
+print "Encrypted text:", convert encrypted_text to hexadecimal format

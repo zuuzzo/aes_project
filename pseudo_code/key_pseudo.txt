@@ -1,0 +1,12 @@
+import os
+import binascii
+
+key = generate random 16 bytes
+
+hex_key = convert key to hexadecimal string
+
+open key_file as f
+    write hex_key to f
+close key_file
+
+print 'Key saved to key.txt'

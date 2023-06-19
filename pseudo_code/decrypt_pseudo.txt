@@ -1,0 +1,25 @@
+import Crypto.Cipher
+
+function decrypt(ciphertext_filename, key_filename):
+    open ciphertext_file as f
+        iv = read 16 bytes from f
+        tag = read 16 bytes from f
+        ciphertext = read remaining bytes from f
+    close ciphertext_file
+
+    open key_file as key_file
+        key = read all bytes from key_file
+    close key_file
+
+    cipher = AES.new(key, AES.MODE_EAX, iv)
+
+    plaintext = cipher.decrypt_and_verify(ciphertext, tag)
+
+    return plaintext
+
+key_filename = 'key.txt'
+ciphertext_filename = 'output.txt'
+
+decrypted_text = decrypt(ciphertext_filename, key_filename)
+
+print "Decrypted text:", decode decrypted_text
